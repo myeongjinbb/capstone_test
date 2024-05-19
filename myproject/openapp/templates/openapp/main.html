@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main</title>
+    <style>
+        .chat-group {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .chat {
+            width: 33.33%; 
+        }
+    </style>
+</head>
+<body>
+    <h1>메인 페이지</h1>
+
+    <h2>Users</h2>
+    {% if user.is_authenticated %}
+    안녕하세요 {{ user.name}} 님 , 환영합니다! 
+    <form action="{% url 'logout' %}" method="POST">
+        {% csrf_token%}
+        <input type="submit" value="Logout">
+    </form>
+{% endif %}
+    <ul>
+        {% for user in users %}
+            <li>{{ user.name }} - {{ user.email }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Chats</h2>
+    <div class="chat-group">
+        {% for chat in chats %}
+            {% if user.email == chat.user.email %}
+                <div class="chat">
+                    <p>Question: <a href="{% url 'chat' chat_room_id=chat.chat_room_id %}">{{ chat.question }}</a></p>
+                    <p>Source: {{ chat.source }}</p>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div>
+        <h2>새로운 채팅방</h2>
+        <div>
+            <a href="{% url 'create_chat' %}">새로운 채팅방 생성</a>
+        </div>
+    </div>
+</body>
+</html>

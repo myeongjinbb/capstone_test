@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Chat</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f0f0f0;
+            }
+            .container {
+                margin: 20px auto;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            h1 {
+                text-align: center;
+            }
+            form {
+                margin-top: 20px;
+            }
+            input[type="text"] {
+                width: 100%;
+                padding: 8px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                margin-right: 10px;
+            }
+            button {
+                padding: 8px 20px;
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            .chat {
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                max-height: 600px;
+                height: 600px;
+                overflow-y: auto;
+
+            }
+            .message {
+                margin-bottom: 10px;
+                display: flex;
+            }
+            .user-message {
+                background-color: #f1f0f0;
+                padding: 8px 12px;
+                border-radius: 4px;
+                max-width: 70%;
+                margin-left: auto;
+                margin-right: 10px;
+            }
+            .ai-message {
+                background-color: #007bff;
+                color: #fff;
+                padding: 8px 12px;
+                border-radius: 4px;
+                max-width: 70%;
+                margin-left: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>물어보세요</h1>
+            <div>
+                {% if user.is_authenticated %}
+                    {{ user.email}}
+                    <form action="{% url 'logout' %}" method="POST">
+                        {% csrf_token%}
+                        <input type="submit" value="Logout">
+                    </form>
+                {% endif %}
+            </div>
+            <div>
+                <a href="{% url 'create_chat' %}">새로운 채팅방 생성</a>
+            </div>
+            <div>
+                <a href="{% url 'main' %}">메인 페이지로 이동</a>
+            </div>
+            <div
+                style="display: flex; flex-direction: row; text-align: center; justify-content: center; padding-top:60px; background-color: #FAFAFA">
+                <div style="width: 500px; min-width: 500px;">
+                    <div class="chat">
+                        {% for chat in gpt_chats %}
+                            <div class="message">
+                                <div class="user-message">{{ chat.question }}</div>
+                            </div>
+                            <div class="message">
+                                <div class="ai-message">{{ chat.response }}</div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <form method="post" action="{% url 'chat' chat_room_id=chat_room_id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="source" value="gpt">
+                        <input type="text" name="question">
+                        <button type="submit">Send to GPT</button>
+                    </form>
+                </div>
+                <div style="width: 500px; min-width: 500px; ">
+                    <div class="chat">
+                        {% for chat in gemini_chats %}
+                            <div class="message">
+                                <div class="user-message">{{ chat.question }}</div>
+                            </div>
+                            <div class="message">
+                                <div class="ai-message">{{ chat.response }}</div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <form method="post" action="{% url 'chat' chat_room_id=chat_room_id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="source" value="gemini">
+                        <input type="text" name="question">
+                        <button type="submit">Send to Gemini</button>
+                    </form>
+                </div>
+                <form method="post" action="{% url 'chat' chat_room_id=chat_room_id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="source" value="both">
+                    <input type="text" name="question">
+                    <button type="submit">Send to GPT and Gemini</button>
+                </form>
+                
+            </div>
+        
+        </div>
+
+    </body>
+</html>

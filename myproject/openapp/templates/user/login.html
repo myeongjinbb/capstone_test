@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <title>Login</title>
+    </head>
+    <body>
+        <h1>Login</h1>
+        <form id="loginForm">
+            {% csrf_token %}
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email"><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password"><br>
+            <button type="submit">Login</button>
+        </form>
+            계정이 없으신가요?
+            <a href="{% url 'join' %}">가입하기</a>
+        </div>
+
+        <script>
+            $('#loginForm').submit(function (event) {
+                event.preventDefault();
+                let email = $('#email').val();
+                let password = $('#password').val();
+    
+                $.ajax({
+                    url: "{% url 'login' %}",
+                    method: "POST",
+                    data: {
+                        email: email,
+                        password: password,
+                        csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val() // Include the CSRF token
+                    },
+                    success: function (data) {
+                        alert(data.message);
+                        location.href = '{% url 'main' %}';
+                    },
+                    error: function (xhr, status, error) {
+                        alert(xhr.responseJSON.message);
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

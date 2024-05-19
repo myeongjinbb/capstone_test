@@ -1,0 +1,60 @@
+/* App.css 또는 ChatRoom 컴포넌트에 직접 적용할 스타일 */
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.chat-box {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.chat-history {
+  width: 45%;
+  height: 400px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.message {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.user-message {
+  background-color: #f1f1f1;
+  text-align: right;
+}
+
+.ai-message {
+  background-color: #007bff;
+  color: white;
+  text-align: left;
+}
+
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.input-field {
+  width: calc(45% - 22px);
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.send-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

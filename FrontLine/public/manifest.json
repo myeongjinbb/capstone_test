@@ -1,0 +1,10 @@
+{
+  "short_name": "AI-Chat-Ensemble Front",
+  "name": "the front prototype of AI-Chat-Ensemble.",
+  "icons": [
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

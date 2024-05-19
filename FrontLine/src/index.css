@@ -1,0 +1,158 @@
+/**
+ * 기본적인 사이트 스타일.
+ */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background-color: rgb(20, 20, 20);
+  color: white;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+header {
+  display: flex;
+  position: fixed;
+  width: 60%;
+  min-width: 360px;
+  height: 60px;
+  padding: 0 10%;
+  z-index: 1;
+}
+
+header > a {
+  flex-grow: 0;
+  flex-shrink: 0;
+  text-align: left;
+  background: url("../public/logo.png") left center no-repeat;
+  background-size: 50px 50px;
+  padding: 0 50px;
+  font-size: 24px;
+}
+header > div {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+fieldset {
+  position: relative;
+  border: none;
+  border-radius: 25px;
+  padding: 25px;
+}
+fieldset > * {
+  position: relative;
+}
+
+input {
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+}
+input:is([type=button], [type=submit]) {
+  text-align: center;
+  cursor: pointer;
+  padding: 10px 40px;
+}
+
+h1 {
+  position: sticky;
+  background: rgb(20, 20, 20);
+  top: 60px;
+  text-align: center;
+  margin: 0px;
+}
+pre {
+  line-height: 20px;
+  color: gainsboro;
+  white-space: pre-wrap;
+}
+
+a {
+  display: flex;
+  color: white;
+  height: 100%;
+  align-items: center;
+  text-decoration: none;
+}
+
+hr {
+  margin-left: 0px;
+}
+
+.response_title {
+  display: flex;
+}
+.response_title > * {
+  height: 40px;
+}
+.response_title > img {
+  border-radius: 50%;
+}
+.response_title > div {
+  display: flex;
+  flex-direction: column;
+  margin: 0px 10px;
+}
+.response_title > div > * {
+  height: 100%;
+  margin: 0px;
+  font-weight: 400;
+}
+
+
+.user_question {
+  background: dodgerblue;
+  border-radius: 50px;
+  font-weight: 600;
+  padding: 10px 50px;
+  margin-right: 10%;
+  float: right;
+}
+.split_box {
+  display: flex;
+  position: relative;
+  margin: 5%;
+  width: 90%;
+  overflow-x: scroll;
+}
+.split_box::-webkit-scrollbar {
+  height: 10px;
+}
+.split_box::-webkit-scrollbar-thumb {
+  background-color: rgba(180, 180, 180, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+}
+
+.split_box > div {
+  width: 50%;
+  padding: 0 5%;
+  margin: 0 auto;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.split_box > div > * {
+  width: 100%;
+}
+
+@media screen and (max-width: 760px) {
+  .split_box > div {
+    width: 100%
+  }
+}
